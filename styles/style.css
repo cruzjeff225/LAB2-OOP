@@ -1,5 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
 *{
-    font-family: Arial, Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    margin:0;padding:0;
+    box-sizing: border-box;
+    outline:none; border: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+.container{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    padding: 25px;
+    background: linear-gradient(#161815);
+    padding-bottom:70px;
+}
+.container form{
+    padding: 20px;
+    width: 700px;
+    background: #ffff;
+    box-shadow: 0 5px 10px rgba(0,0,0,.1);
 }
 body{
     background: #161815;
