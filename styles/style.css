@@ -8,12 +8,8 @@
     transition: all .2s linear;
 }
 .container{
-    display:flex;
-    justify-content:center;
-    align-items: center;
-    padding: 25px;
-    background: linear-gradient(#161815);
-    padding-bottom:70px;
+    max-width: 600px;
+    margin: 5 auto;
 }
 
 .container form{
@@ -21,6 +17,10 @@
     width: 700px;
     background: #ffff;
     box-shadow: 0 5px 10px rgba(0,0,0,.1);
+}
+#ticket-cost{
+    text-align: center;
+    font-size: 15px;
 }
 body{
     background: #161815;

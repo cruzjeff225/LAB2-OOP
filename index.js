@@ -1,37 +1,43 @@
-//Obtenemos elementos del DOM
-const form=document.querySelector('form');
-const tableBody=document.getElementById('table-body');
+window.addEventListener("load", () => {
+    const today= new Date();
+    document.getElementById("load-date").min= today.toISOString().slice(0, 10);
+});
 
-//Agregamos listener al formulario
+const FlyForm= document.getElementById("fly-form");
+const TicketCost= document.getElementById("ticket-cost");
 
-form.addEventListener('submit', function(event) {
+FlyForm.addEventListener("submit",(event) => {
     event.preventDefault();
 
-    const loadOrigin= (document.getElementById('load-origin').value)
-    const loadDestination= (document.getElementById('load-destination').value)
-    const loadDate= new Date(document.getElementById('load-date').value)
-    const loadTime= (document.getElementById('load-time').value)
-    const MontoPago= 200;
+    const loadOrigin=document.getElementById("load-origin").value;
+    const loadDestination=document.getElementById("load-destination").value;
+    const loadDateString=document.getElementById("load-date").value;
+    const loadDate= new Date(loadDateString + "T00: 00: 00. 000-04:00");
+    loadDate.setMinutes(loadDate.getMinutes()- loadDate.getTimezoneOffset()- 360);
 
-    //Creamos el ciclo SI EL ORIGEN ES DIFERENTE QUE DESTINO
-    function MonFinal(){
-        if(loadOrigin != loadDestination){
-        montoPago +=50;
-    }
-    }
-    if(loadOrigin != loadDestination){
-        montoPago +=50;
-    }
+const loadTime=document.getElementById("load-time").value;
 
-    if(loadDate.getDay()==5|| loadDate.getDay()==6|| loadDate.getDay()==0){
-       montoPago +=100; 
-    }
-    
-    var horaPartida= parseInt(loadTime.substring(0,2));
-    if((horaPartida>=7 && horaPartida <=9)|| (horaPartida>=16 && horaPartida <=18)){
-        montoPago +=75;
-    }
+//Establecemos el costo base
+let ticketPrice= 200;
+ //Sumamos $50 si la ciudad de origen y destino son diferentes
+if (loadOrigin != loadDestination) ticketPrice +=50;
 
-    tableBody.appendChild(row);
+ //Sumamos $100 si parte en fin de semana
+const weekend= [5, 6, 0];
+if (weekend.includes(loadDate.getDay())){
+    ticketPrice +=100;
+}
+//Sumamos $75 si parte en horas pico
+const loadHour= Number.parseInt(loadTime.split(":")[0]);
 
-})
+if(
+    (loadHour >=7 && loadHour <9) ||
+    (loadHour >16 && loadHour <18)
+)
+    ticketPrice +=75;
+    TicketCost.innerHTML= `✈️ La información de tu vuelo es: Ciudad de Origen: ${loadOrigin}
+    Ciudad de Destino: ${loadDestination}
+    Hora de Partida: ${loadTime}
+    Fecha de Partida: ${loadDateString}
+    COSTO TOTAL DEL BOLETO: $${ticketPrice}`;
+});
